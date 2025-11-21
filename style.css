@@ -1,0 +1,162 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    overflow: hidden;
+    position: relative;
+}
+
+.mode-selector {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+}
+
+.mode-btn {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: rgb(60, 60, 60);
+    color: rgb(200, 200, 200);
+    border: 2px solid rgb(100, 100, 100);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    background-color: rgb(80, 80, 80);
+}
+
+.mode-btn.active {
+    background-color: rgb(250, 242, 24);
+    color: rgb(0, 0, 0);
+    border-color: rgb(250, 242, 24);
+}
+
+/* Le tube (mode 2) */
+.tube {
+    position: absolute;
+    width: 120px;
+    height: 60vh;
+    border: 3px solid rgb(250, 242, 24);
+    border-radius: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.tube.visible {
+    display: block;
+}
+
+/* La boule */
+.boule {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgb(250, 242, 24);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: glissementEntree 1.5s ease-out forwards;
+}
+
+/* Mode 1 : Grossir */
+.boule.mode-grossir.active {
+    animation: respiration 10s ease-in-out infinite;
+}
+
+/* Mode 2 : Tube */
+.boule.mode-tube {
+    width: 90px;
+    height: 90px;
+}
+
+.boule.mode-tube.active {
+    animation: monteeDescente 10s ease-in-out infinite;
+}
+
+/* Bouton Start */
+#startBtn {
+    position: absolute;
+    top: calc(50% + 34vh);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(250, 242, 24);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 15;
+}
+
+#startBtn:hover {
+    background-color: rgb(223, 210, 69);
+}
+
+/* Bouton Stop */
+#stopBtn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(220, 38, 38);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 15;
+}
+
+#stopBtn:hover {
+    background-color: rgb(185, 28, 28);
+}
+
+/* Animations */
+@keyframes glissementEntree {
+    from {
+        transform: translate(-50%, -75vh);
+    }
+    to {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes respiration {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(10);
+    }
+}
+
+@keyframes monteeDescente {
+    0%, 100% {
+        transform: translate(-50%, calc(-50% + 25vh));
+    }
+    50% {
+        transform: translate(-50%, calc(-50% - 25vh));
+    }
+}
