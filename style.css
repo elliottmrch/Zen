@@ -39,35 +39,46 @@ body.light-theme .tube {
 }
 
 body.light-theme .mode-btn,
+body.light-theme .mode-btn-mobile,
 body.light-theme .time-btn,
+body.light-theme .time-btn-mobile,
 body.light-theme #startBtn,
 body.light-theme .music-btn,
 body.light-theme .theme-btn,
-body.light-theme .settings-btn {
+body.light-theme .settings-btn,
+body.light-theme .menu-btn,
+body.light-theme .option-btn {
     color: rgba(0, 0, 0, 0.6);
     border-color: rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.05);
 }
 
 body.light-theme .mode-btn:hover,
+body.light-theme .mode-btn-mobile:hover,
 body.light-theme .time-btn:hover,
+body.light-theme .time-btn-mobile:hover,
 body.light-theme #startBtn:hover,
 body.light-theme .music-btn:hover,
 body.light-theme .theme-btn:hover,
-body.light-theme .settings-btn:hover {
+body.light-theme .settings-btn:hover,
+body.light-theme .menu-btn:hover,
+body.light-theme .option-btn:hover {
     color: rgba(0, 0, 0, 0.8);
     border-color: rgba(0, 0, 0, 0.4);
     background-color: rgba(0, 0, 0, 0.08);
 }
 
-body.light-theme .mode-btn.active {
+body.light-theme .mode-btn.active,
+body.light-theme .mode-btn-mobile.active {
     background-color: rgba(0, 0, 0, 0.1);
     color: #000000;
     border-color: rgba(0, 0, 0, 0.5);
 }
 
 body.light-theme .time-display,
+body.light-theme .time-display-mobile,
 body.light-theme #timeValue,
+body.light-theme #timeValueMobile,
 body.light-theme .app-title {
     color: rgba(0, 0, 0, 0.9);
 }
@@ -86,21 +97,14 @@ body.light-theme #timeSlider::-moz-range-thumb {
     box-shadow: 0 0 10px var(--primary-glow);
 }
 
-body.light-theme .music-icon,
-body.light-theme .theme-icon,
-body.light-theme .settings-icon {
-    color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .music-btn.active .music-icon {
-    color: #000000;
-}
-
+body.light-theme .mobile-menu,
 body.light-theme .settings-panel {
     background-color: rgba(255, 255, 255, 0.95);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
+body.light-theme .menu-header h2,
+body.light-theme .menu-section h3,
 body.light-theme .settings-header h2 {
     color: #000000;
 }
@@ -112,21 +116,6 @@ body.light-theme .close-btn {
 body.light-theme .close-btn:hover {
     color: #000000;
     background-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .color-btn:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-
-body.light-theme .color-btn.active {
-    border-color: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Couleur blanche devient noire en mode clair */
-body.light-theme .color-btn[data-color="white"] {
-    background-color: #1a1a1a !important;
-    border-color: #666 !important;
 }
 
 /* Titre */
@@ -147,7 +136,245 @@ body.light-theme .color-btn[data-color="white"] {
     opacity: 0.9;
 }
 
-/* Bouton paramètres */
+/* Menu burger mobile */
+.menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 45;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* Mobile menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 85%;
+    max-width: 350px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    z-index: 50;
+}
+
+.mobile-menu.open {
+    right: 0;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.menu-section {
+    margin-bottom: 30px;
+}
+
+.menu-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.mode-selector-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mode-btn-mobile {
+    padding: 15px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mode-btn-mobile.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.time-control-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.time-btn-mobile {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-display-mobile {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    min-width: 60px;
+    text-align: center;
+}
+
+.color-options-mobile {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.options-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.option-btn {
+    flex: 1;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.option-btn i {
+    font-size: 20px;
+}
+
+.option-btn.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Boutons couleurs */
+.color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.color-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: none !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.color-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.color-btn.active::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000000;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+body.light-theme .color-btn.active::after {
+    color: #ffffff !important;
+}
+
+body.light-theme .color-btn[data-color="white"] {
+    background-color: #1a1a1a !important;
+}
+
+body.light-theme .color-btn:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Desktop elements */
 .settings-btn {
     position: absolute;
     top: 100px;
@@ -172,7 +399,7 @@ body.light-theme .color-btn[data-color="white"] {
 }
 
 .settings-icon {
-    font-size: 24px;
+    font-size: 20px;
     color: rgba(255, 255, 255, 0.7);
     transition: all 0.3s ease;
 }
@@ -182,7 +409,6 @@ body.light-theme .color-btn[data-color="white"] {
     transform: rotate(45deg);
 }
 
-/* Panel paramètres */
 .settings-panel {
     position: absolute;
     top: 50%;
@@ -219,73 +445,6 @@ body.light-theme .color-btn[data-color="white"] {
     letter-spacing: 0.5px;
 }
 
-.close-btn {
-    width: 32px;
-    height: 32px;
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.close-btn:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.color-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-}
-
-.color-btn {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.color-btn:hover {
-    transform: scale(1.15);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.color-btn.active {
-    border-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-.color-btn.active::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: rgba(0, 0, 0, 0.8);
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.color-btn[data-color="white"].active::after {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-body.light-theme .color-btn[data-color="white"].active::after {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* Bouton thème */
 .theme-btn {
     position: absolute;
     top: 30px;
@@ -309,17 +468,18 @@ body.light-theme .color-btn[data-color="white"].active::after {
     transform: scale(1.05);
 }
 
-.theme-icon {
-    font-size: 24px;
+.theme-icon,
+.music-icon {
+    font-size: 20px;
     color: rgba(255, 255, 255, 0.7);
     transition: all 0.3s ease;
 }
 
-.theme-btn:hover .theme-icon {
+.theme-btn:hover .theme-icon,
+.music-btn:hover .music-icon {
     color: #ffffff;
 }
 
-/* Bouton musique */
 .music-btn {
     position: absolute;
     top: 30px;
@@ -348,12 +508,6 @@ body.light-theme .color-btn[data-color="white"].active::after {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
-.music-icon {
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.7);
-    transition: all 0.3s ease;
-}
-
 .music-btn.active .music-icon {
     color: #ffffff;
     animation: pulse 2s ease-in-out infinite;
@@ -370,7 +524,6 @@ body.light-theme .color-btn[data-color="white"].active::after {
     }
 }
 
-/* Sélecteur de mode */
 .mode-selector {
     position: absolute;
     top: 70px;
@@ -406,7 +559,6 @@ body.light-theme .color-btn[data-color="white"].active::after {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Contrôle du temps */
 .time-control {
     position: absolute;
     top: 130px;
@@ -421,7 +573,7 @@ body.light-theme .color-btn[data-color="white"].active::after {
 .time-btn {
     width: 40px;
     height: 40px;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
     font-family: 'Inter', sans-serif;
     background-color: rgba(255, 255, 255, 0.1);
@@ -498,7 +650,7 @@ body.light-theme .color-btn[data-color="white"].active::after {
     color: #ffffff;
 }
 
-/* Le tube (mode 2) */
+/* Tube et boule */
 .tube {
     position: absolute;
     width: 120px;
@@ -517,7 +669,6 @@ body.light-theme .color-btn[data-color="white"].active::after {
     display: block;
 }
 
-/* La boule */
 .boule {
     width: 150px;
     height: 150px;
@@ -532,12 +683,10 @@ body.light-theme .color-btn[data-color="white"].active::after {
     transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Mode 1 : Grossir */
 .boule.mode-grossir.active {
     animation: respiration 10s ease-in-out infinite;
 }
 
-/* Mode 2 : Tube */
 .boule.mode-tube {
     width: 90px;
     height: 90px;
@@ -547,7 +696,6 @@ body.light-theme .color-btn[data-color="white"].active::after {
     animation: monteeDescente 10s ease-in-out infinite;
 }
 
-/* Bouton Start */
 #startBtn {
     position: absolute;
     top: 65%;
@@ -578,7 +726,6 @@ body.light-theme .color-btn[data-color="white"].active::after {
     transform: translateX(-50%) translateY(-2px);
 }
 
-/* Bouton Stop */
 #stopBtn {
     position: absolute;
     bottom: 40px;
@@ -616,7 +763,7 @@ body.light-theme #stopBtn:hover {
     transform: translateX(-50%) translateY(-2px);
 }
 
-/* Animations */
+/* Animations desktop */
 @keyframes glissementEntree {
     from {
         transform: translate(-50%, -75vh);
@@ -641,5 +788,131 @@ body.light-theme #stopBtn:hover {
     }
     50% {
         transform: translate(-50%, calc(-50% - 25vh));
+    }
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+
+    .app-title {
+        font-size: 22px;
+    }
+
+    .boule {
+        width: 120px;
+        height: 120px;
+    }
+
+    .boule.mode-tube {
+        width: 70px;
+        height: 70px;
+    }
+
+    .tube {
+        width: 100px;
+        height: 50vh;
+    }
+
+    #startBtn {
+        top: auto;
+        bottom: 100px;
+        padding: 12px 35px;
+        font-size: 14px;
+    }
+
+    #startBtn.mode-tube-btn {
+        top: auto;
+        bottom: 100px;
+    }
+
+    #stopBtn {
+        bottom: 100px;
+        padding: 12px 35px;
+        font-size: 14px;
+    }
+
+    /* Animation respiration adaptée mobile */
+    @keyframes respiration {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(6);
+        }
+    }
+
+    /* Animation tube adaptée mobile - amplitude réduite */
+    @keyframes monteeDescente {
+        0%, 100% {
+            transform: translate(-50%, calc(-50% + 20vh));
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 20vh));
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 20px;
+    }
+
+    .boule {
+        width: 100px;
+        height: 100px;
+    }
+
+    .boule.mode-tube {
+        width: 60px;
+        height: 60px;
+    }
+
+    .tube {
+        width: 90px;
+        height: 45vh;
+    }
+
+    /* Animation respiration adaptée petit mobile */
+    @keyframes respiration {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(5);
+        }
+    }
+
+    /* Animation tube adaptée petit mobile - amplitude encore plus réduite */
+    @keyframes monteeDescente {
+        0%, 100% {
+            transform: translate(-50%, calc(-50% + 17vh));
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 17vh));
+        }
+    }
+}
+
+@media (max-width: 375px) {
+    /* Pour les très petits écrans (iPhone SE, etc.) */
+    .tube {
+        height: 40vh;
+    }
+
+    /* Animation tube adaptée très petit mobile */
+    @keyframes monteeDescente {
+        0%, 100% {
+            transform: translate(-50%, calc(-50% + 15vh));
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 15vh));
+        }
     }
 }

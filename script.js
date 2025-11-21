@@ -2,6 +2,8 @@ const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
 const boule = document.querySelector('.boule');
 const tube = document.querySelector('.tube');
+
+// Desktop
 const modeGrossirBtn = document.getElementById('modeGrossir');
 const modeTubeBtn = document.getElementById('modeTube');
 const timeSlider = document.getElementById('timeSlider');
@@ -9,13 +11,27 @@ const timeValue = document.getElementById('timeValue');
 const decreaseBtn = document.getElementById('decreaseBtn');
 const increaseBtn = document.getElementById('increaseBtn');
 const musicBtn = document.getElementById('musicBtn');
-const ambientMusic = document.getElementById('ambientMusic');
 const themeBtn = document.getElementById('themeBtn');
 const themeIcon = document.querySelector('.theme-icon');
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsPanel = document.getElementById('settingsPanel');
 const closeSettings = document.getElementById('closeSettings');
-const colorBtns = document.querySelectorAll('.color-btn');
+const colorBtnsDesktop = document.querySelectorAll('.color-btn-desktop');
+
+// Mobile
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+const modeGrossirMobile = document.getElementById('modeGrossirMobile');
+const modeTubeMobile = document.getElementById('modeTubeMobile');
+const timeValueMobile = document.getElementById('timeValueMobile');
+const decreaseBtnMobile = document.getElementById('decreaseBtnMobile');
+const increaseBtnMobile = document.getElementById('increaseBtnMobile');
+const musicBtnMobile = document.getElementById('musicBtnMobile');
+const themeBtnMobile = document.getElementById('themeBtnMobile');
+const colorBtnsMobile = document.querySelectorAll('.color-options-mobile .color-btn');
+
+const ambientMusic = document.getElementById('ambientMusic');
 
 let currentMode = 'grossir';
 let breathTime = 5;
@@ -23,7 +39,7 @@ let isMusicPlaying = false;
 let isLightTheme = false;
 let currentColor = 'white';
 
-// Palette de couleurs avec versions sombre et claire (6 couleurs)
+// Palette de couleurs
 const colors = {
     white: { 
         dark: { color: '#ffffff', glow: 'rgba(255, 255, 255, 0.4)' },
@@ -51,7 +67,7 @@ const colors = {
     }
 };
 
-// Fonction pour appliquer la couleur selon le thème
+// Fonction pour appliquer la couleur
 function applyColor() {
     const theme = isLightTheme ? 'light' : 'dark';
     const selectedColor = colors[currentColor][theme];
@@ -60,85 +76,205 @@ function applyColor() {
     document.documentElement.style.setProperty('--primary-glow', selectedColor.glow);
 }
 
-// Gestion des paramètres
-settingsBtn.addEventListener('click', function() {
-    settingsPanel.classList.add('open');
-});
-
-closeSettings.addEventListener('click', function() {
-    settingsPanel.classList.remove('open');
-});
-
-// Gestion des couleurs
-colorBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        colorBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        
-        currentColor = this.getAttribute('data-color');
-        applyColor();
+// Menu mobile
+if (menuBtn) {
+    menuBtn.addEventListener('click', function() {
+        mobileMenu.classList.add('open');
     });
-});
+}
 
-// Gestion du thème
-themeBtn.addEventListener('click', function() {
+if (closeMenu) {
+    closeMenu.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+    });
+}
+
+// Gestion des paramètres desktop
+if (settingsBtn) {
+    settingsBtn.addEventListener('click', function() {
+        if (settingsPanel.classList.contains('open')) {
+            settingsPanel.classList.remove('open');
+        } else {
+            settingsPanel.classList.add('open');
+        }
+    });
+}
+
+if (closeSettings) {
+    closeSettings.addEventListener('click', function() {
+        settingsPanel.classList.remove('open');
+    });
+}
+
+// Gestion des couleurs desktop
+if (colorBtnsDesktop) {
+    colorBtnsDesktop.forEach(btn => {
+        btn.addEventListener('click', function() {
+            colorBtnsDesktop.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            currentColor = this.getAttribute('data-color');
+            applyColor();
+            
+            // Sync avec mobile
+            syncColorSelection();
+        });
+    });
+}
+
+// Gestion des couleurs mobile
+if (colorBtnsMobile) {
+    colorBtnsMobile.forEach(btn => {
+        btn.addEventListener('click', function() {
+            colorBtnsMobile.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            currentColor = this.getAttribute('data-color');
+            applyColor();
+            
+            // Sync avec desktop
+            syncColorSelection();
+        });
+    });
+}
+
+// Synchroniser la sélection de couleur entre desktop et mobile
+function syncColorSelection() {
+    const allColorBtns = document.querySelectorAll('.color-btn');
+    allColorBtns.forEach(btn => {
+        if (btn.getAttribute('data-color') === currentColor) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+// Gestion du thème desktop
+if (themeBtn) {
+    themeBtn.addEventListener('click', toggleTheme);
+}
+
+// Gestion du thème mobile
+if (themeBtnMobile) {
+    themeBtnMobile.addEventListener('click', function() {
+        toggleTheme();
+        this.classList.toggle('active');
+    });
+}
+
+function toggleTheme() {
     isLightTheme = !isLightTheme;
     
     if (isLightTheme) {
         document.body.classList.add('light-theme');
-        themeIcon.textContent = '☾';
+        if (themeIcon) {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+        if (themeBtnMobile) {
+            themeBtnMobile.querySelector('i').classList.remove('fa-sun');
+            themeBtnMobile.querySelector('i').classList.add('fa-moon');
+        }
     } else {
         document.body.classList.remove('light-theme');
-        themeIcon.textContent = '☀';
+        if (themeIcon) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        if (themeBtnMobile) {
+            themeBtnMobile.querySelector('i').classList.remove('fa-moon');
+            themeBtnMobile.querySelector('i').classList.add('fa-sun');
+        }
     }
     
-    // Réappliquer la couleur avec le nouveau thème
     applyColor();
-});
+}
 
-// Gestion de la musique
-musicBtn.addEventListener('click', function() {
+// Gestion de la musique desktop
+if (musicBtn) {
+    musicBtn.addEventListener('click', toggleMusic);
+}
+
+// Gestion de la musique mobile
+if (musicBtnMobile) {
+    musicBtnMobile.addEventListener('click', function() {
+        toggleMusic();
+        this.classList.toggle('active');
+    });
+}
+
+function toggleMusic() {
     if (isMusicPlaying) {
         ambientMusic.pause();
-        musicBtn.classList.remove('active');
+        if (musicBtn) musicBtn.classList.remove('active');
+        if (musicBtnMobile) musicBtnMobile.classList.remove('active');
         isMusicPlaying = false;
     } else {
         ambientMusic.play();
-        musicBtn.classList.add('active');
+        if (musicBtn) musicBtn.classList.add('active');
+        if (musicBtnMobile) musicBtnMobile.classList.add('active');
         isMusicPlaying = true;
     }
-});
+}
 
 ambientMusic.volume = 0.3;
 
-// Gestion du slider
-timeSlider.addEventListener('input', function() {
-    breathTime = parseInt(this.value);
-    timeValue.textContent = breathTime;
-    updateAnimationDuration();
-});
+// Gestion du temps desktop
+if (timeSlider) {
+    timeSlider.addEventListener('input', function() {
+        breathTime = parseInt(this.value);
+        if (timeValue) timeValue.textContent = breathTime;
+        if (timeValueMobile) timeValueMobile.textContent = breathTime;
+        updateAnimationDuration();
+    });
+}
 
-// Bouton -
-decreaseBtn.addEventListener('click', function() {
+if (decreaseBtn) {
+    decreaseBtn.addEventListener('click', function() {
+        decreaseTime();
+    });
+}
+
+if (increaseBtn) {
+    increaseBtn.addEventListener('click', function() {
+        increaseTime();
+    });
+}
+
+// Gestion du temps mobile
+if (decreaseBtnMobile) {
+    decreaseBtnMobile.addEventListener('click', function() {
+        decreaseTime();
+    });
+}
+
+if (increaseBtnMobile) {
+    increaseBtnMobile.addEventListener('click', function() {
+        increaseTime();
+    });
+}
+
+function decreaseTime() {
     if (breathTime > 3) {
         breathTime--;
-        timeSlider.value = breathTime;
-        timeValue.textContent = breathTime;
+        if (timeSlider) timeSlider.value = breathTime;
+        if (timeValue) timeValue.textContent = breathTime;
+        if (timeValueMobile) timeValueMobile.textContent = breathTime;
         updateAnimationDuration();
     }
-});
+}
 
-// Bouton +
-increaseBtn.addEventListener('click', function() {
+function increaseTime() {
     if (breathTime < 8) {
         breathTime++;
-        timeSlider.value = breathTime;
-        timeValue.textContent = breathTime;
+        if (timeSlider) timeSlider.value = breathTime;
+        if (timeValue) timeValue.textContent = breathTime;
+        if (timeValueMobile) timeValueMobile.textContent = breathTime;
         updateAnimationDuration();
     }
-});
+}
 
-// Mise à jour de la durée d'animation
 function updateAnimationDuration() {
     const totalDuration = breathTime * 2;
     
@@ -149,31 +285,45 @@ function updateAnimationDuration() {
     }
 }
 
-// Mode Grossir
-modeGrossirBtn.addEventListener('click', function() {
-    switchMode('grossir');
-    modeGrossirBtn.classList.add('active');
-    modeTubeBtn.classList.remove('active');
-    
-    boule.style.width = '150px';
-    boule.style.height = '150px';
-    
-    startBtn.classList.remove('mode-tube-btn');
-});
+// Gestion des modes desktop
+if (modeGrossirBtn) {
+    modeGrossirBtn.addEventListener('click', function() {
+        setMode('grossir');
+        modeGrossirBtn.classList.add('active');
+        modeTubeBtn.classList.remove('active');
+    });
+}
 
-// Mode Tube
-modeTubeBtn.addEventListener('click', function() {
-    switchMode('tube');
-    modeTubeBtn.classList.add('active');
-    modeGrossirBtn.classList.remove('active');
-    
-    boule.style.width = '90px';
-    boule.style.height = '90px';
-    
-    startBtn.classList.add('mode-tube-btn');
-});
+if (modeTubeBtn) {
+    modeTubeBtn.addEventListener('click', function() {
+        setMode('tube');
+        modeTubeBtn.classList.add('active');
+        modeGrossirBtn.classList.remove('active');
+    });
+}
 
-function switchMode(mode) {
+// Gestion des modes mobile
+if (modeGrossirMobile) {
+    modeGrossirMobile.addEventListener('click', function() {
+        setMode('grossir');
+        modeGrossirMobile.classList.add('active');
+        modeTubeMobile.classList.remove('active');
+        if (modeGrossirBtn) modeGrossirBtn.classList.add('active');
+        if (modeTubeBtn) modeTubeBtn.classList.remove('active');
+    });
+}
+
+if (modeTubeMobile) {
+    modeTubeMobile.addEventListener('click', function() {
+        setMode('tube');
+        modeTubeMobile.classList.add('active');
+        modeGrossirMobile.classList.remove('active');
+        if (modeTubeBtn) modeTubeBtn.classList.add('active');
+        if (modeGrossirBtn) modeGrossirBtn.classList.remove('active');
+    });
+}
+
+function setMode(mode) {
     currentMode = mode;
     
     boule.classList.remove('active', 'mode-tube', 'mode-grossir');
@@ -181,9 +331,35 @@ function switchMode(mode) {
     
     if (mode === 'grossir') {
         boule.classList.add('mode-grossir');
+        boule.style.width = '150px';
+        boule.style.height = '150px';
+        startBtn.classList.remove('mode-tube-btn');
+        
+        // Ajustement mobile
+        if (window.innerWidth <= 768) {
+            boule.style.width = '120px';
+            boule.style.height = '120px';
+        }
+        if (window.innerWidth <= 480) {
+            boule.style.width = '100px';
+            boule.style.height = '100px';
+        }
     } else if (mode === 'tube') {
         tube.classList.add('visible');
         boule.classList.add('mode-tube');
+        boule.style.width = '90px';
+        boule.style.height = '90px';
+        startBtn.classList.add('mode-tube-btn');
+        
+        // Ajustement mobile
+        if (window.innerWidth <= 768) {
+            boule.style.width = '70px';
+            boule.style.height = '70px';
+        }
+        if (window.innerWidth <= 480) {
+            boule.style.width = '60px';
+            boule.style.height = '60px';
+        }
     }
     
     startBtn.style.display = 'block';
@@ -198,6 +374,11 @@ startBtn.addEventListener('click', function() {
     updateAnimationDuration();
     startBtn.style.display = 'none';
     stopBtn.style.display = 'block';
+    
+    // Fermer le menu mobile si ouvert
+    if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+    }
 });
 
 // Bouton Stop
@@ -217,4 +398,11 @@ function resetAnimation() {
     }, 10);
 }
 
+// Ajustement responsive au redimensionnement
+window.addEventListener('resize', function() {
+    setMode(currentMode);
+});
+
+// Initialisation
 boule.classList.add('mode-grossir');
+setMode('grossir');

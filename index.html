@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>RespiZen</title>
 </head>
 <body>
@@ -15,61 +16,136 @@
         <h1 class="app-title">RespiZen</h1>
     </div>
 
-    <!-- Bouton paramètres -->
-    <button id="settingsBtn" class="settings-btn">
-        <span class="settings-icon">⚙</span>
+    <!-- Menu burger mobile -->
+    <button id="menuBtn" class="menu-btn">
+        <i class="fa-solid fa-bars"></i>
     </button>
 
-    <!-- Panel paramètres -->
-    <div id="settingsPanel" class="settings-panel">
-        <div class="settings-header">
-            <h2>Couleurs</h2>
-            <button id="closeSettings" class="close-btn">✕</button>
+    <!-- Panel menu mobile -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="menu-header">
+            <h2>Menu</h2>
+            <button id="closeMenu" class="close-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
-        <div class="color-options">
-            <button class="color-btn active" data-color="white" style="background-color: #ffffff; border: 2px solid #ddd;"></button>
-            <button class="color-btn" data-color="blue" style="background-color: #3b82f6;"></button>
-            <button class="color-btn" data-color="green" style="background-color: #10b981;"></button>
-            <button class="color-btn" data-color="yellow" style="background-color: #fbbf24;"></button>
-            <button class="color-btn" data-color="purple" style="background-color: #a855f7;"></button>
-            <button class="color-btn" data-color="pink" style="background-color: #ec4899;"></button>
+
+        <!-- Modes -->
+        <div class="menu-section">
+            <h3>Mode</h3>
+            <div class="mode-selector-mobile">
+                <button id="modeGrossirMobile" class="mode-btn-mobile active">
+                    <i class="fa-solid fa-circle"></i>
+                    <span>Respiration</span>
+                </button>
+                <button id="modeTubeMobile" class="mode-btn-mobile">
+                    <i class="fa-solid fa-arrows-up-down"></i>
+                    <span>Tube</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Temps -->
+        <div class="menu-section">
+            <h3>Durée</h3>
+            <div class="time-control-mobile">
+                <button id="decreaseBtnMobile" class="time-btn-mobile">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <div class="time-display-mobile">
+                    <span id="timeValueMobile">5</span>s
+                </div>
+                <button id="increaseBtnMobile" class="time-btn-mobile">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Couleurs -->
+        <div class="menu-section">
+            <h3>Couleurs</h3>
+            <div class="color-options-mobile">
+                <button class="color-btn active" data-color="white" style="background-color: #ffffff;"></button>
+                <button class="color-btn" data-color="blue" style="background-color: #3b82f6;"></button>
+                <button class="color-btn" data-color="green" style="background-color: #10b981;"></button>
+                <button class="color-btn" data-color="yellow" style="background-color: #fbbf24;"></button>
+                <button class="color-btn" data-color="purple" style="background-color: #a855f7;"></button>
+                <button class="color-btn" data-color="pink" style="background-color: #ec4899;"></button>
+            </div>
+        </div>
+
+        <!-- Options -->
+        <div class="menu-section">
+            <h3>Options</h3>
+            <div class="options-buttons">
+                <button id="themeBtnMobile" class="option-btn">
+                    <i class="fa-solid fa-sun"></i>
+                    <span>Thème</span>
+                </button>
+                <button id="musicBtnMobile" class="option-btn">
+                    <i class="fa-solid fa-music"></i>
+                    <span>Musique</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Bouton thème -->
-    <button id="themeBtn" class="theme-btn">
-        <span class="theme-icon">☀</span>
+    <!-- Boutons desktop uniquement -->
+    <button id="settingsBtn" class="settings-btn desktop-only">
+        <i class="fa-solid fa-gear settings-icon"></i>
     </button>
 
-    <!-- Bouton musique -->
-    <button id="musicBtn" class="music-btn">
-        <span class="music-icon">♪</span>
+    <div id="settingsPanel" class="settings-panel desktop-only">
+        <div class="settings-header">
+            <h2>Couleurs</h2>
+            <button id="closeSettings" class="close-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="color-options">
+            <button class="color-btn color-btn-desktop active" data-color="white" style="background-color: #ffffff;"></button>
+            <button class="color-btn color-btn-desktop" data-color="blue" style="background-color: #3b82f6;"></button>
+            <button class="color-btn color-btn-desktop" data-color="green" style="background-color: #10b981;"></button>
+            <button class="color-btn color-btn-desktop" data-color="yellow" style="background-color: #fbbf24;"></button>
+            <button class="color-btn color-btn-desktop" data-color="purple" style="background-color: #a855f7;"></button>
+            <button class="color-btn color-btn-desktop" data-color="pink" style="background-color: #ec4899;"></button>
+        </div>
+    </div>
+
+    <button id="themeBtn" class="theme-btn desktop-only">
+        <i class="fa-solid fa-sun theme-icon"></i>
     </button>
 
-    <!-- Audio -->
-    <audio id="ambientMusic" loop>
-        <source src="bensound-slowmotion.mp3" type="audio/mpeg">
-    </audio>
-    
-    <!-- Boutons de sélection de mode -->
-    <div class="mode-selector">
+    <button id="musicBtn" class="music-btn desktop-only">
+        <i class="fa-solid fa-music music-icon"></i>
+    </button>
+
+    <div class="mode-selector desktop-only">
         <button id="modeGrossir" class="mode-btn active">Respiration</button>
         <button id="modeTube" class="mode-btn">Tube</button>
     </div>
-    
-    <!-- Contrôle du temps -->
-    <div class="time-control">
-        <button id="decreaseBtn" class="time-btn">−</button>
+
+    <div class="time-control desktop-only">
+        <button id="decreaseBtn" class="time-btn">
+            <i class="fa-solid fa-minus"></i>
+        </button>
         <div class="time-slider-container">
             <input type="range" id="timeSlider" min="3" max="8" value="5" step="1">
             <div class="time-display">
                 <span id="timeValue">5</span>s
             </div>
         </div>
-        <button id="increaseBtn" class="time-btn">+</button>
+        <button id="increaseBtn" class="time-btn">
+            <i class="fa-solid fa-plus"></i>
+        </button>
     </div>
+
+    <!-- Audio -->
+    <audio id="ambientMusic" loop>
+        <source src="bensound-slowmotion.mp3" type="audio/mpeg">
+    </audio>
     
-    <!-- Tube pour le mode 2 -->
+    <!-- Tube -->
     <div class="tube"></div>
     
     <!-- La boule -->
