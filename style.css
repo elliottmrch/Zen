@@ -1,43 +1,59 @@
+/* ========================================
+   RÉINITIALISATION ET VARIABLES CSS
+======================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Variables CSS pour les couleurs dynamiques */
 :root {
-    --primary-color: #ffffff;
-    --primary-glow: rgba(255, 255, 255, 0.4);
+    --primary-color: #ffffff;           /* Couleur de la boule */
+    --primary-glow: rgba(255, 255, 255, 0.4);  /* Ombre lumineuse */
 }
+
+/* ========================================
+   STYLES DE BASE DU BODY
+======================================== */
 
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100vh;                      /* Hauteur plein écran */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000;
-    overflow: hidden;
+    background-color: #000000;          /* Fond noir par défaut */
+    overflow: hidden;                   /* Pas de scroll */
     position: relative;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    transition: background-color 0.4s ease;
+    transition: background-color 0.4s ease;  /* Transition douce pour le changement de thème */
 }
 
-/* Thème clair */
+/* ========================================
+   THÈME CLAIR
+   Appliqué quand la classe 'light-theme' est ajoutée au body
+======================================== */
+
 body.light-theme {
-    background-color: #f5f5f5;
+    background-color: #f5f5f5;          /* Fond gris clair */
 }
 
+/* Style de la boule en thème clair */
 body.light-theme .boule {
     background-color: var(--primary-color);
     box-shadow: 0 0 60px var(--primary-glow);
 }
 
+/* Style du tube en thème clair */
 body.light-theme .tube {
     border-color: var(--primary-color);
     opacity: 0.6;
 }
 
+/* Styles des boutons en thème clair */
 body.light-theme .mode-btn,
 body.light-theme .mode-btn-mobile,
 body.light-theme .time-btn,
@@ -53,6 +69,7 @@ body.light-theme .option-btn {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* Hover des boutons en thème clair */
 body.light-theme .mode-btn:hover,
 body.light-theme .mode-btn-mobile:hover,
 body.light-theme .time-btn:hover,
@@ -68,6 +85,7 @@ body.light-theme .option-btn:hover {
     background-color: rgba(0, 0, 0, 0.08);
 }
 
+/* Boutons actifs en thème clair */
 body.light-theme .mode-btn.active,
 body.light-theme .mode-btn-mobile.active {
     background-color: rgba(0, 0, 0, 0.1);
@@ -75,6 +93,7 @@ body.light-theme .mode-btn-mobile.active {
     border-color: rgba(0, 0, 0, 0.5);
 }
 
+/* Textes en thème clair */
 body.light-theme .time-display,
 body.light-theme .time-display-mobile,
 body.light-theme #timeValue,
@@ -83,6 +102,7 @@ body.light-theme .app-title {
     color: rgba(0, 0, 0, 0.9);
 }
 
+/* Slider en thème clair */
 body.light-theme #timeSlider {
     background: rgba(0, 0, 0, 0.2);
 }
@@ -97,18 +117,21 @@ body.light-theme #timeSlider::-moz-range-thumb {
     box-shadow: 0 0 10px var(--primary-glow);
 }
 
+/* Menus en thème clair */
 body.light-theme .mobile-menu,
 body.light-theme .settings-panel {
     background-color: rgba(255, 255, 255, 0.95);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
+/* Titres des menus en thème clair */
 body.light-theme .menu-header h2,
 body.light-theme .menu-section h3,
 body.light-theme .settings-header h2 {
     color: #000000;
 }
 
+/* Bouton fermer en thème clair */
 body.light-theme .close-btn {
     color: rgba(0, 0, 0, 0.6);
 }
@@ -118,12 +141,15 @@ body.light-theme .close-btn:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Titre */
+/* ========================================
+   HEADER - TITRE
+======================================== */
+
 .header {
     position: absolute;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%);        /* Centre horizontalement */
     z-index: 30;
 }
 
@@ -136,7 +162,10 @@ body.light-theme .close-btn:hover {
     opacity: 0.9;
 }
 
-/* Menu burger mobile */
+/* ========================================
+   MENU BURGER MOBILE
+======================================== */
+
 .menu-btn {
     position: absolute;
     top: 20px;
@@ -147,7 +176,7 @@ body.light-theme .close-btn:hover {
     border: 1.5px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     cursor: pointer;
-    display: none;
+    display: none;                      /* Caché sur desktop */
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
@@ -162,27 +191,32 @@ body.light-theme .close-btn:hover {
     transform: scale(1.05);
 }
 
-/* Mobile menu */
+/* ========================================
+   PANNEAU MENU MOBILE
+======================================== */
+
 .mobile-menu {
     position: fixed;
     top: 0;
-    right: -100%;
+    right: -100%;                       /* Caché hors écran à droite */
     width: 85%;
     max-width: 350px;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);        /* Effet de flou d'arrière-plan */
     border-left: 1.5px solid rgba(255, 255, 255, 0.2);
     padding: 20px;
-    overflow-y: auto;
-    transition: right 0.3s ease;
+    overflow-y: auto;                   /* Scroll si contenu trop grand */
+    transition: right 0.3s ease;        /* Animation de slide */
     z-index: 50;
 }
 
+/* Menu ouvert - slide vers la gauche */
 .mobile-menu.open {
     right: 0;
 }
 
+/* En-tête du menu */
 .menu-header {
     display: flex;
     justify-content: space-between;
@@ -198,6 +232,7 @@ body.light-theme .close-btn:hover {
     color: #ffffff;
 }
 
+/* Section du menu (chaque catégorie) */
 .menu-section {
     margin-bottom: 30px;
 }
@@ -211,6 +246,7 @@ body.light-theme .close-btn:hover {
     margin-bottom: 15px;
 }
 
+/* Sélecteur de mode mobile */
 .mode-selector-mobile {
     display: flex;
     flex-direction: column;
@@ -239,6 +275,7 @@ body.light-theme .close-btn:hover {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Contrôle du temps mobile */
 .time-control-mobile {
     display: flex;
     align-items: center;
@@ -269,12 +306,14 @@ body.light-theme .close-btn:hover {
     text-align: center;
 }
 
+/* Options de couleurs mobile */
 .color-options-mobile {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);  /* 3 colonnes */
     gap: 12px;
 }
 
+/* Boutons d'options (thème et musique) */
 .options-buttons {
     display: flex;
     gap: 10px;
@@ -308,6 +347,7 @@ body.light-theme .close-btn:hover {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Bouton fermer (X) */
 .close-btn {
     width: 32px;
     height: 32px;
@@ -328,7 +368,11 @@ body.light-theme .close-btn:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Boutons couleurs */
+/* ========================================
+   BOUTONS DE COULEURS
+   Utilisés dans le panneau desktop et le menu mobile
+======================================== */
+
 .color-options {
     display: flex;
     flex-wrap: wrap;
@@ -347,25 +391,28 @@ body.light-theme .close-btn:hover {
 }
 
 .color-btn:hover {
-    transform: scale(1.15);
+    transform: scale(1.15);             /* Agrandit au survol */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Checkmark sur la couleur sélectionnée */
 .color-btn.active::after {
     content: '✓';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #000000;
+    color: #000000;                     /* Noir par défaut (mode sombre) */
     font-size: 26px;
     font-weight: bold;
 }
 
+/* Checkmark blanc en thème clair */
 body.light-theme .color-btn.active::after {
     color: #ffffff !important;
 }
 
+/* Bouton blanc devient noir en thème clair */
 body.light-theme .color-btn[data-color="white"] {
     background-color: #1a1a1a !important;
 }
@@ -374,7 +421,11 @@ body.light-theme .color-btn:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Desktop elements */
+/* ========================================
+   CONTRÔLES DESKTOP
+======================================== */
+
+/* Bouton paramètres */
 .settings-btn {
     position: absolute;
     top: 100px;
@@ -404,11 +455,13 @@ body.light-theme .color-btn:hover {
     transition: all 0.3s ease;
 }
 
+/* Rotation de l'icône au survol */
 .settings-btn:hover .settings-icon {
     color: #ffffff;
     transform: rotate(45deg);
 }
 
+/* Panneau paramètres */
 .settings-panel {
     position: absolute;
     top: 50%;
@@ -420,12 +473,13 @@ body.light-theme .color-btn:hover {
     border-radius: 20px;
     padding: 25px;
     width: 280px;
-    opacity: 0;
+    opacity: 0;                         /* Invisible par défaut */
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 40;
 }
 
+/* Panneau ouvert */
 .settings-panel.open {
     opacity: 1;
     visibility: visible;
@@ -445,6 +499,7 @@ body.light-theme .color-btn:hover {
     letter-spacing: 0.5px;
 }
 
+/* Bouton thème */
 .theme-btn {
     position: absolute;
     top: 30px;
@@ -480,6 +535,7 @@ body.light-theme .color-btn:hover {
     color: #ffffff;
 }
 
+/* Bouton musique */
 .music-btn {
     position: absolute;
     top: 30px;
@@ -503,11 +559,13 @@ body.light-theme .color-btn:hover {
     transform: scale(1.05);
 }
 
+/* Musique active */
 .music-btn.active {
     background-color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Animation pulse quand la musique joue */
 .music-btn.active .music-icon {
     color: #ffffff;
     animation: pulse 2s ease-in-out infinite;
@@ -524,6 +582,7 @@ body.light-theme .color-btn:hover {
     }
 }
 
+/* Sélecteur de mode desktop */
 .mode-selector {
     position: absolute;
     top: 70px;
@@ -559,6 +618,7 @@ body.light-theme .color-btn:hover {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Contrôle du temps desktop */
 .time-control {
     position: absolute;
     top: 130px;
@@ -600,6 +660,7 @@ body.light-theme .color-btn:hover {
     gap: 8px;
 }
 
+/* Slider personnalisé */
 #timeSlider {
     width: 200px;
     height: 4px;
@@ -611,6 +672,7 @@ body.light-theme .color-btn:hover {
     cursor: pointer;
 }
 
+/* Curseur du slider - Chrome/Safari */
 #timeSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -627,6 +689,7 @@ body.light-theme .color-btn:hover {
     transform: scale(1.2);
 }
 
+/* Curseur du slider - Firefox */
 #timeSlider::-moz-range-thumb {
     width: 18px;
     height: 18px;
@@ -650,25 +713,30 @@ body.light-theme .color-btn:hover {
     color: #ffffff;
 }
 
-/* Tube et boule */
+/* ========================================
+   TUBE ET BOULE - ÉLÉMENTS VISUELS PRINCIPAUX
+======================================== */
+
+/* Tube vertical (mode Tube) */
 .tube {
     position: absolute;
     width: 120px;
-    height: 60vh;
+    height: 60vh;                       /* 60% de la hauteur de l'écran */
     border: 3px solid var(--primary-color);
     border-radius: 60px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
+    transform: translate(-50%, -50%);   /* Centre parfaitement */
+    display: none;                      /* Caché par défaut */
     transition: border-color 0.4s ease;
-    opacity: 0.4;
+    opacity: 0.4;                       /* Semi-transparent */
 }
 
 .tube.visible {
     display: block;
 }
 
+/* Boule animée */
 .boule {
     width: 150px;
     height: 150px;
@@ -678,27 +746,34 @@ body.light-theme .color-btn:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: glissementEntree 1.5s ease-out forwards;
+    animation: glissementEntree 1.5s ease-out forwards;  /* Animation d'entrée */
     box-shadow: 0 0 60px var(--primary-glow);
     transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* Mode Respiration actif */
 .boule.mode-grossir.active {
     animation: respiration 10s ease-in-out infinite;
 }
 
+/* Mode Tube */
 .boule.mode-tube {
     width: 90px;
     height: 90px;
 }
 
+/* Mode Tube actif */
 .boule.mode-tube.active {
     animation: monteeDescente 10s ease-in-out infinite;
 }
 
+/* ========================================
+   BOUTONS START/STOP
+======================================== */
+
 #startBtn {
     position: absolute;
-    top: 65%;
+    top: 65%;                           /* Position par défaut */
     left: 50%;
     transform: translateX(-50%);
     padding: 15px 40px;
@@ -716,8 +791,9 @@ body.light-theme .color-btn:hover {
     transition: all 0.3s ease;
 }
 
+/* Position en mode Tube */
 #startBtn.mode-tube-btn {
-    top: calc(50% + 32vh);
+    top: calc(50% + 32vh);              /* Sous le tube */
 }
 
 #startBtn:hover {
@@ -735,7 +811,7 @@ body.light-theme .color-btn:hover {
     font-size: 15px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
-    background-color: rgba(220, 38, 38, 0.2);
+    background-color: rgba(220, 38, 38, 0.2);  /* Rouge semi-transparent */
     color: #ffffff;
     border: 1.5px solid rgba(220, 38, 38, 0.5);
     border-radius: 30px;
@@ -746,6 +822,7 @@ body.light-theme .color-btn:hover {
     transition: all 0.3s ease;
 }
 
+/* Bouton Stop en thème clair */
 body.light-theme #stopBtn {
     background-color: rgba(220, 38, 38, 0.15);
     color: rgba(220, 38, 38, 0.9);
@@ -763,48 +840,61 @@ body.light-theme #stopBtn:hover {
     transform: translateX(-50%) translateY(-2px);
 }
 
-/* Animations desktop */
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+/* Animation d'entrée de la boule */
 @keyframes glissementEntree {
     from {
-        transform: translate(-50%, -75vh);
+        transform: translate(-50%, -75vh);  /* Vient du haut */
     }
     to {
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);   /* Centre */
     }
 }
 
+/* Animation mode Respiration - Desktop */
 @keyframes respiration {
     0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(1);    /* Taille normale */
     }
     50% {
-        transform: translate(-50%, -50%) scale(10);
+        transform: translate(-50%, -50%) scale(10);   /* Grossit 10x */
     }
 }
 
+/* Animation mode Tube - Desktop */
 @keyframes monteeDescente {
     0%, 100% {
-        transform: translate(-50%, calc(-50% + 25vh));
+        transform: translate(-50%, calc(-50% + 25vh));  /* Bas */
     }
     50% {
-        transform: translate(-50%, calc(-50% - 25vh));
+        transform: translate(-50%, calc(-50% - 25vh));  /* Haut */
     }
 }
 
-/* Media queries */
+/* ========================================
+   RESPONSIVE - TABLETTE & MOBILE
+======================================== */
+
 @media (max-width: 768px) {
+    /* Cache tous les éléments desktop */
     .desktop-only {
         display: none !important;
     }
 
+    /* Affiche le menu burger */
     .menu-btn {
         display: flex;
     }
 
+    /* Ajuste le titre */
     .app-title {
         font-size: 22px;
     }
 
+    /* Ajuste la boule */
     .boule {
         width: 120px;
         height: 120px;
@@ -815,11 +905,13 @@ body.light-theme #stopBtn:hover {
         height: 70px;
     }
 
+    /* Ajuste le tube */
     .tube {
         width: 100px;
         height: 50vh;
     }
 
+    /* Repositionne les boutons Start/Stop en bas */
     #startBtn {
         top: auto;
         bottom: 100px;
@@ -838,17 +930,17 @@ body.light-theme #stopBtn:hover {
         font-size: 14px;
     }
 
-    /* Animation respiration adaptée mobile */
+    /* Animation respiration adaptée - moins intense */
     @keyframes respiration {
         0%, 100% {
             transform: translate(-50%, -50%) scale(1);
         }
         50% {
-            transform: translate(-50%, -50%) scale(6);
+            transform: translate(-50%, -50%) scale(6);  /* Grossit moins */
         }
     }
 
-    /* Animation tube adaptée mobile - amplitude réduite */
+    /* Animation tube adaptée - amplitude réduite */
     @keyframes monteeDescente {
         0%, 100% {
             transform: translate(-50%, calc(-50% + 20vh));
@@ -858,6 +950,10 @@ body.light-theme #stopBtn:hover {
         }
     }
 }
+
+/* ========================================
+   RESPONSIVE - PETIT MOBILE (iPhone, etc.)
+======================================== */
 
 @media (max-width: 480px) {
     .app-title {
@@ -879,7 +975,7 @@ body.light-theme #stopBtn:hover {
         height: 45vh;
     }
 
-    /* Animation respiration adaptée petit mobile */
+    /* Animation respiration encore plus réduite */
     @keyframes respiration {
         0%, 100% {
             transform: translate(-50%, -50%) scale(1);
@@ -889,7 +985,7 @@ body.light-theme #stopBtn:hover {
         }
     }
 
-    /* Animation tube adaptée petit mobile - amplitude encore plus réduite */
+    /* Animation tube encore plus réduite */
     @keyframes monteeDescente {
         0%, 100% {
             transform: translate(-50%, calc(-50% + 17vh));
@@ -900,13 +996,16 @@ body.light-theme #stopBtn:hover {
     }
 }
 
+/* ========================================
+   RESPONSIVE - TRÈS PETIT MOBILE (iPhone SE, etc.)
+======================================== */
+
 @media (max-width: 375px) {
-    /* Pour les très petits écrans (iPhone SE, etc.) */
     .tube {
         height: 40vh;
     }
 
-    /* Animation tube adaptée très petit mobile */
+    /* Animation tube minimale pour éviter le débordement */
     @keyframes monteeDescente {
         0%, 100% {
             transform: translate(-50%, calc(-50% + 15vh));

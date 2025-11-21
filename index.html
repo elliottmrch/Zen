@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Métadonnées de base -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Feuilles de style -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts - Police Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome - Icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <title>RespiZen</title>
 </head>
 <body>
-    <!-- Titre -->
+    <!-- ========================================
+         HEADER - Titre de l'application
+    ======================================== -->
     <div class="header">
         <h1 class="app-title">RespiZen</h1>
     </div>
 
-    <!-- Menu burger mobile -->
+    <!-- ========================================
+         MENU BURGER MOBILE
+         Visible uniquement sur mobile/tablette
+    ======================================== -->
     <button id="menuBtn" class="menu-btn">
         <i class="fa-solid fa-bars"></i>
     </button>
 
-    <!-- Panel menu mobile -->
+    <!-- ========================================
+         PANNEAU MENU MOBILE
+         Slide depuis la droite sur mobile
+    ======================================== -->
     <div id="mobileMenu" class="mobile-menu">
+        <!-- En-tête du menu -->
         <div class="menu-header">
             <h2>Menu</h2>
             <button id="closeMenu" class="close-btn">
@@ -30,14 +47,16 @@
             </button>
         </div>
 
-        <!-- Modes -->
+        <!-- Section : Choix du mode de respiration -->
         <div class="menu-section">
             <h3>Mode</h3>
             <div class="mode-selector-mobile">
+                <!-- Mode Respiration : boule qui grossit/rétrécit -->
                 <button id="modeGrossirMobile" class="mode-btn-mobile active">
                     <i class="fa-solid fa-circle"></i>
                     <span>Respiration</span>
                 </button>
+                <!-- Mode Tube : boule qui monte/descend -->
                 <button id="modeTubeMobile" class="mode-btn-mobile">
                     <i class="fa-solid fa-arrows-up-down"></i>
                     <span>Tube</span>
@@ -45,26 +64,30 @@
             </div>
         </div>
 
-        <!-- Temps -->
+        <!-- Section : Réglage de la durée -->
         <div class="menu-section">
             <h3>Durée</h3>
             <div class="time-control-mobile">
+                <!-- Bouton pour diminuer le temps -->
                 <button id="decreaseBtnMobile" class="time-btn-mobile">
                     <i class="fa-solid fa-minus"></i>
                 </button>
+                <!-- Affichage du temps actuel -->
                 <div class="time-display-mobile">
                     <span id="timeValueMobile">5</span>s
                 </div>
+                <!-- Bouton pour augmenter le temps -->
                 <button id="increaseBtnMobile" class="time-btn-mobile">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Couleurs -->
+        <!-- Section : Choix de la couleur -->
         <div class="menu-section">
             <h3>Couleurs</h3>
             <div class="color-options-mobile">
+                <!-- 6 couleurs disponibles -->
                 <button class="color-btn active" data-color="white" style="background-color: #ffffff;"></button>
                 <button class="color-btn" data-color="blue" style="background-color: #3b82f6;"></button>
                 <button class="color-btn" data-color="green" style="background-color: #10b981;"></button>
@@ -74,14 +97,16 @@
             </div>
         </div>
 
-        <!-- Options -->
+        <!-- Section : Options (thème et musique) -->
         <div class="menu-section">
             <h3>Options</h3>
             <div class="options-buttons">
+                <!-- Bouton pour changer de thème (clair/sombre) -->
                 <button id="themeBtnMobile" class="option-btn">
                     <i class="fa-solid fa-sun"></i>
                     <span>Thème</span>
                 </button>
+                <!-- Bouton pour activer/désactiver la musique -->
                 <button id="musicBtnMobile" class="option-btn">
                     <i class="fa-solid fa-music"></i>
                     <span>Musique</span>
@@ -90,11 +115,17 @@
         </div>
     </div>
 
-    <!-- Boutons desktop uniquement -->
+    <!-- ========================================
+         CONTRÔLES DESKTOP
+         Cachés sur mobile (classe desktop-only)
+    ======================================== -->
+    
+    <!-- Bouton paramètres (gauche, sous le bouton thème) -->
     <button id="settingsBtn" class="settings-btn desktop-only">
         <i class="fa-solid fa-gear settings-icon"></i>
     </button>
 
+    <!-- Panneau de paramètres (couleurs) -->
     <div id="settingsPanel" class="settings-panel desktop-only">
         <div class="settings-header">
             <h2>Couleurs</h2>
@@ -103,6 +134,7 @@
             </button>
         </div>
         <div class="color-options">
+            <!-- Même sélection de couleurs que sur mobile -->
             <button class="color-btn color-btn-desktop active" data-color="white" style="background-color: #ffffff;"></button>
             <button class="color-btn color-btn-desktop" data-color="blue" style="background-color: #3b82f6;"></button>
             <button class="color-btn color-btn-desktop" data-color="green" style="background-color: #10b981;"></button>
@@ -112,24 +144,29 @@
         </div>
     </div>
 
+    <!-- Bouton thème (haut gauche) -->
     <button id="themeBtn" class="theme-btn desktop-only">
         <i class="fa-solid fa-sun theme-icon"></i>
     </button>
 
+    <!-- Bouton musique (haut droite) -->
     <button id="musicBtn" class="music-btn desktop-only">
         <i class="fa-solid fa-music music-icon"></i>
     </button>
 
+    <!-- Sélecteur de mode (haut centre) -->
     <div class="mode-selector desktop-only">
         <button id="modeGrossir" class="mode-btn active">Respiration</button>
         <button id="modeTube" class="mode-btn">Tube</button>
     </div>
 
+    <!-- Contrôle du temps (centre haut, sous les modes) -->
     <div class="time-control desktop-only">
         <button id="decreaseBtn" class="time-btn">
             <i class="fa-solid fa-minus"></i>
         </button>
         <div class="time-slider-container">
+            <!-- Slider pour ajuster le temps de 3 à 8 secondes -->
             <input type="range" id="timeSlider" min="3" max="8" value="5" step="1">
             <div class="time-display">
                 <span id="timeValue">5</span>s
@@ -140,21 +177,35 @@
         </button>
     </div>
 
-    <!-- Audio -->
+    <!-- ========================================
+         LECTEUR AUDIO
+         Musique d'ambiance zen
+    ======================================== -->
     <audio id="ambientMusic" loop>
         <source src="bensound-slowmotion.mp3" type="audio/mpeg">
     </audio>
     
-    <!-- Tube -->
+    <!-- ========================================
+         ÉLÉMENTS VISUELS PRINCIPAUX
+    ======================================== -->
+    
+    <!-- Tube vertical (visible uniquement en mode Tube) -->
     <div class="tube"></div>
     
-    <!-- La boule -->
+    <!-- Boule animée (élément central) -->
     <div class="boule"></div>
     
-    <!-- Boutons Start/Stop -->
+    <!-- ========================================
+         BOUTONS DE CONTRÔLE
+    ======================================== -->
+    
+    <!-- Bouton Start (visible par défaut) -->
     <button id="startBtn">Start</button>
+    
+    <!-- Bouton Stop (visible uniquement quand l'animation est active) -->
     <button id="stopBtn" style="display: none;">Stop</button>
     
+    <!-- Script JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
