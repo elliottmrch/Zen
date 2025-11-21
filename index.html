@@ -4,18 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Zen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>RespiZen</title>
 </head>
 <body>
+    <!-- Titre -->
+    <div class="header">
+        <h1 class="app-title">RespiZen</h1>
+    </div>
+
+    <!-- Bouton paramètres -->
+    <button id="settingsBtn" class="settings-btn">
+        <span class="settings-icon">⚙</span>
+    </button>
+
+    <!-- Panel paramètres -->
+    <div id="settingsPanel" class="settings-panel">
+        <div class="settings-header">
+            <h2>Couleurs</h2>
+            <button id="closeSettings" class="close-btn">✕</button>
+        </div>
+        <div class="color-options">
+            <button class="color-btn active" data-color="white" style="background-color: #ffffff; border: 2px solid #ddd;"></button>
+            <button class="color-btn" data-color="blue" style="background-color: #3b82f6;"></button>
+            <button class="color-btn" data-color="green" style="background-color: #10b981;"></button>
+            <button class="color-btn" data-color="yellow" style="background-color: #fbbf24;"></button>
+            <button class="color-btn" data-color="purple" style="background-color: #a855f7;"></button>
+            <button class="color-btn" data-color="pink" style="background-color: #ec4899;"></button>
+        </div>
+    </div>
+
+    <!-- Bouton thème -->
+    <button id="themeBtn" class="theme-btn">
+        <span class="theme-icon">☀</span>
+    </button>
+
+    <!-- Bouton musique -->
+    <button id="musicBtn" class="music-btn">
+        <span class="music-icon">♪</span>
+    </button>
+
+    <!-- Audio -->
+    <audio id="ambientMusic" loop>
+        <source src="bensound-slowmotion.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Boutons de sélection de mode -->
     <div class="mode-selector">
-        <button id="modeGrossir" class="mode-btn active">Grossir</button>
+        <button id="modeGrossir" class="mode-btn active">Respiration</button>
         <button id="modeTube" class="mode-btn">Tube</button>
     </div>
     
+    <!-- Contrôle du temps -->
+    <div class="time-control">
+        <button id="decreaseBtn" class="time-btn">−</button>
+        <div class="time-slider-container">
+            <input type="range" id="timeSlider" min="3" max="8" value="5" step="1">
+            <div class="time-display">
+                <span id="timeValue">5</span>s
+            </div>
+        </div>
+        <button id="increaseBtn" class="time-btn">+</button>
+    </div>
+    
+    <!-- Tube pour le mode 2 -->
     <div class="tube"></div>
     
+    <!-- La boule -->
     <div class="boule"></div>
     
+    <!-- Boutons Start/Stop -->
     <button id="startBtn">Start</button>
     <button id="stopBtn" style="display: none;">Stop</button>
     
